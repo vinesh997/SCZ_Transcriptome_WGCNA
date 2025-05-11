@@ -1,5 +1,5 @@
 #!/bin/bash
-folder="Directory of the raw files"
+folder="Directory of the raw fastq files"
 
 mkdir "${folder}/cutadapt2"
 
