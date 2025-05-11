@@ -1,5 +1,5 @@
 #!/bin/bash
-folder="Directory of the raw files"
+folder="Directory of the raw fastq files"
 hisat2="Directory for hisat2-2.1.0"
 
 mkdir "${folder}/hisat2"
