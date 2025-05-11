@@ -5,7 +5,7 @@ hisat2="Directory for hisat2-2.1.0"
 mkdir "${folder}/hisat2"
 
 # Human genome index
-genome="Directory of human genome "
+genome="Directory of human reference genome "
 
 for i in $(ls ${folder}/cutadapt2/*.gz | xargs -n 1 basename | sed 's/\(.*\)_.*/\1/' | sed 's/\(.*\)_.*/\1/' | sort -u)
 
