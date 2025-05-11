@@ -5,7 +5,7 @@ library(tibble)
 library(dplyr)
 library(tidyr)
 
-setwd("C:/Vinesh/PhD_Analysis/RNA-seq/WGCNA_23_10_2024/Correlation")
+setwd("")
 
 
 Data<- read.csv("PANSS_Profile_TScore.csv", check.names = F) #dim 19;25
