@@ -7,8 +7,7 @@ library(tidyr)
 
 setwd("")
 
-
-Data<- read.csv("PANSS_Profile_TScore.csv", check.names = F) #dim 19;25
+Data<- read.csv(" .csv", check.names = F) #dim 19;25, reading the Tscore of PANSS scores 
 Data<- column_to_rownames(Data, var = "Scale")
 Data<- as.data.frame(t(Data))
 
@@ -31,7 +30,6 @@ cofactors <- c("Sex", "Age", "Duration")
 # Ensure variable names are character strings
 var_pairs$PANSS <- as.character(var_pairs$PANSS)
 var_pairs$Hemogram <- as.character(var_pairs$Hemogram)
-
 
 # Initialize an empty dataframe to store results
 partial_corr_results <- data.frame(PANSS = character(), 
@@ -94,8 +92,6 @@ for (i in 1:nrow(var_pairs)) {
   ))
 }
 
-
-
 # Reshape data for plotting (correlation matrix style)
 correlation_matrix <- dcast(partial_corr_results, PANSS ~ Hemogram, value.var = "PartialCorrelation")
 
@@ -135,7 +131,7 @@ ppcor::pcor.test(x=Data$Negative,y=Data$Platelet, z=Data[,c( "Sex", "Age", "Dura
 #Filtering the associations based on SCZ and HC mean count
 
 #reading the hemogram count of SCZ and HC participants
-hem_scz_hc<- read.csv("Hemogram_SCZ_HC.csv", check.names = F)
+hem_scz_hc<- read.csv(" .csv", check.names = F)
 
 #calculating mean based on groups 
 group_means <- hem_scz_hc %>%
