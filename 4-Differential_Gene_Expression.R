@@ -145,11 +145,11 @@ top_downregulated
 
 # Save top upregulated genes
 upregulated$Genes<- as.character(upregulated$Genes)
-write.csv(upregulated, file = "upregulated_genes_18_03_2025.csv", row.names = F, quote = T)
+write.csv(upregulated, file = "upregulated_genes.csv", row.names = F, quote = T)
 
 # Save top downregulated genes
 downregulated$Genes<- as.character(downregulated$Genes)
-write.csv(downregulated, file = "downregulated_genes_18_03_2025.csv", row.names = F, quote = T)
+write.csv(downregulated, file = "downregulated_genes.csv", row.names = F, quote = T)
 
 # Visualize gene expression between the groups
 plotCounts(dds, gene=" ", intgroup="Diagnosis")
