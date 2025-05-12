@@ -3,10 +3,10 @@ library(tibble)
 setwd(" ")
 
 #Reading the phenodata
-Phenodata<- read.csv("SCZ_CNT_Sample.csv")
+Phenodata<- read.csv(" .csv") #read the phenodata file 
 
 #Filtering samples to remove the eight samples with low sequencing depth
-Data<- read.delim("raw_counts_2.txt", check.names = F, sep = "") #dim 59050;38
+Data<- read.delim("  .txt", check.names = F, sep = "") #dim 59050;38, read the raw count matrix obtained after RNA-seq processing 
 Data<- t(Data)
 Data<- as.data.frame(Data)
 Data<- rownames_to_column(Data, var = "Sample")
@@ -14,7 +14,7 @@ Data<- Data[Data$Sample %in% Phenodata$Sample,]
 Data<- Data %>% remove_rownames() %>% column_to_rownames(var = "Sample")
 Data<- t(Data) #59050;29
 
-write.table(Data, "Raw_counts.txt") ##use this file for further analysis as well as for WGCNA
+write.table(Data, "  .txt") ## save the file and use this file for further analysis as well as for WGCNA
 
 #filtering the genes
 smallestGroupSize <- 13
