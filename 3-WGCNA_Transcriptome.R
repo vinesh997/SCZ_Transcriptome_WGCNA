@@ -12,8 +12,8 @@ library(ggfortify)
 #setting the working directory
 setwd("")
 
-#Reading the count matrix
-Data<- read.delim("Raw_counts.txt", check.names = F, sep = " ") #dim 59050;29
+#Reading the processed count matrix saved from DEG preprocessing
+Data<- read.delim(" .txt", check.names = F, sep = " ") #dim 59050;29
 
 #filtering the genes 
 smallestGroupSize <- 13
@@ -24,7 +24,7 @@ data_filt<- Data[keep,] #dim 18840;29
 data_filt<- t(data_filt)
 data_filt<- as.data.frame(data_filt)
 data_filt<- rownames_to_column(data_filt, var = "Sample")
-Pheno<- read.csv("SCZ_Sample_pheno.csv") #dim 16;14
+Pheno<- read.csv(" .csv") #dim 16;14, reading the phenodata 
 dat_sub<- data_filt[data_filt$Sample %in% Pheno$Sample,]
 dat_sub<- dat_sub %>% remove_rownames() %>% column_to_rownames(var = "Sample")
 dat_sub<-t(dat_sub) #dim 18840;16
@@ -37,7 +37,7 @@ dds <- DESeqDataSetFromMatrix(dat_sub,
 #countmatrix from DESeqDataSet
 count_matrix <- counts(dds) #dim 18840;16
 
-#transforming the data using vst
+# Transforming the data using vst
 vsd<- varianceStabilizingTransformation(dds)
 mat<- assay(vsd)
 
@@ -46,7 +46,7 @@ mat<- assay(vsd)
 design.Covariates <- model.matrix(~ Age + Sex + Duration + NEUTROPHILS + LYMPHOCYTES + 
                                     MONOCYTES + EOSINOPHILS + BASOPHILS, data=Pheno)
 
-#adjusting covariates using limma 
+# Adjusting covariates using limma 
 mat.adjusted <- limma::removeBatchEffect(mat, batch = Pheno$Batch, covariates = design.Covariates)
 
 #visualizing for batch correction on PCA
@@ -75,7 +75,7 @@ plot(sampleTree, main = "Sample clustering to detect outliers", sub="", xlab="",
      cex.axis = 1.5, cex.main = 2)
 
 #Reading and editing the trait data to be used for correlation 
-PS<- read.csv("PANSS_Profile_TScore_WGCNA.csv", check.names = F)
+PS<- read.csv(" .csv", check.names = F)
 PS<- column_to_rownames(PS, var = "Scale")
 traitData <-as.data.frame(t(PS)) #dim 16;22
 symptom_names <- rownames(PS)
