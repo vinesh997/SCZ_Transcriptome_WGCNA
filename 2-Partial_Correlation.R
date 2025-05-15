@@ -5,9 +5,9 @@ library(tibble)
 library(dplyr)
 library(tidyr)
 
-setwd("")
+setwd("") #set the working directory where the files are stored.
 
-Data<- read.csv(" .csv", check.names = F) #dim 19;25, reading the Tscore of PANSS scores 
+Data<- read.csv("filename.csv", check.names = F) #dim 19;25, reading Phenodata 2 file here 
 Data<- column_to_rownames(Data, var = "Scale")
 Data<- as.data.frame(t(Data))
 
@@ -130,8 +130,8 @@ ppcor::pcor.test(x=Data$Negative,y=Data$Platelet, z=Data[,c( "Sex", "Age", "Dura
 
 #Filtering the associations based on SCZ and HC mean count
 
-#reading the hemogram count of SCZ and HC participants
-hem_scz_hc<- read.csv(" .csv", check.names = F)
+#reading the hemogram count of SCZ and HC participants (Phenodata 3)
+hem_scz_hc<- read.csv("filename.csv", check.names = F)
 
 #calculating mean based on groups 
 group_means <- hem_scz_hc %>%
