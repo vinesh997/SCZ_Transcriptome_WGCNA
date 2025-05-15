@@ -10,10 +10,10 @@ library(ggplot2)
 library(ggfortify)
 
 #setting the working directory
-setwd("")
+setwd("") #set the working directory where the files are stored.
 
-#Reading the processed count matrix saved from DEG preprocessing
-Data<- read.delim(" .txt", check.names = F, sep = " ") #dim 59050;29
+#Reading the processed count matrix (Raw_count2) saved from DEG preprocessing
+Data<- read.delim("Raw_count2.txt", check.names = F, sep = " ") #dim 59050;29
 
 #filtering the genes 
 smallestGroupSize <- 13
@@ -24,7 +24,7 @@ data_filt<- Data[keep,] #dim 18840;29
 data_filt<- t(data_filt)
 data_filt<- as.data.frame(data_filt)
 data_filt<- rownames_to_column(data_filt, var = "Sample")
-Pheno<- read.csv(" .csv") #dim 16;14, reading the phenodata 
+Pheno<- read.csv("filename.csv") #dim 16;14, reading the phenodata (Phenodata 4) 
 dat_sub<- data_filt[data_filt$Sample %in% Pheno$Sample,]
 dat_sub<- dat_sub %>% remove_rownames() %>% column_to_rownames(var = "Sample")
 dat_sub<-t(dat_sub) #dim 18840;16
@@ -74,7 +74,7 @@ par(mar = c(0,4,2,0))
 plot(sampleTree, main = "Sample clustering to detect outliers", sub="", xlab="", cex.lab = 1.5, 
      cex.axis = 1.5, cex.main = 2)
 
-#Reading and editing the trait data to be used for correlation 
+#Reading and editing the trait data (Phenodata 5) to be used for correlation 
 PS<- read.csv(" .csv", check.names = F)
 PS<- column_to_rownames(PS, var = "Scale")
 traitData <-as.data.frame(t(PS)) #dim 16;22
