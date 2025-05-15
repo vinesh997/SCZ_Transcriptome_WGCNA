@@ -1,12 +1,12 @@
 library(DESeq2)
 library(tibble)
-setwd(" ")
+setwd(" ") #set the working directory where the files needed for analysis are stored
 
 #Reading the phenodata
-Phenodata<- read.csv(" .csv") #read the phenodata file 
+Phenodata<- read.csv("filename.csv") #read the phenodata file (Phenodata 1)
 
 #Filtering samples to remove the eight samples with low sequencing depth
-Data<- read.delim("  .txt", check.names = F, sep = "") #dim 59050;38, read the raw count matrix obtained after RNA-seq processing 
+Data<- read.delim("filename.txt", check.names = F, sep = "") #dim 59050;38, read the raw count matrix (Raw_count1) obtained after RNA-seq processing 
 Data<- t(Data)
 Data<- as.data.frame(Data)
 Data<- rownames_to_column(Data, var = "Sample")
@@ -14,7 +14,7 @@ Data<- Data[Data$Sample %in% Phenodata$Sample,]
 Data<- Data %>% remove_rownames() %>% column_to_rownames(var = "Sample")
 Data<- t(Data) #59050;29
 
-write.table(Data, "  .txt") ## save the file and use this file for further analysis as well as for WGCNA
+write.table(Data, "Raw_count2.txt") ## save the file and use this file (Raw_count2) for further analysis as well as for WGCNA
 
 #filtering the genes
 smallestGroupSize <- 13
