@@ -1,4 +1,4 @@
-**Title:** Blood Cell Count and Transcriptome Profile Associates with Schizophrenia (SCZ) Symptom Severity: Insights from a Pilot Study of Indian Population
+**Title:** Cellular and Gene Expression Changes as Markers for Schizophrenia Symptoms: Exploratory Findings from a Pilot Study in the Indian Population
 
 **Aim:** Association of peripheral blood parameters with the symptom severity in SCZ in the Indian population
 
