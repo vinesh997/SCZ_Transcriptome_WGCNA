@@ -4,7 +4,7 @@
 
 **Data type:** RNA-seq data of SCZ and healthy control (HC) participants
 
-**About the script:** The raw RNA-seq files were processed using the scripts (https://github.com/satyajeetkhare/RNASeq_HISAT2_Gencode_hg38). The fastq files are obtained from INDA-CA (INCARP000275 and  ). The phenodata information can be obtained from Kaggle (link). The raw count matrix is used for differential gene expression analysis and Weighted gene coexpression analysis (WGCNA). The scripts are as provided above, and the details of each script are mentioned below. 
+**About the script:** The raw RNA-seq files were processed using the scripts (https://github.com/satyajeetkhare/RNASeq_HISAT2_Gencode_hg38). The fastq files are obtained from INDA-CA (INCARP000275 and  INCARP000309). The phenodata information can be obtained on request. The raw count matrix is used for differential gene expression analysis and Weighted gene coexpression analysis (WGCNA). The scripts are as provided above, and the details of each script are mentioned below. 
 
 1- Differential gene expression: The DEGs used for filtering the hub genes were obtained through this script. Prepare Phenodata 1 consisting of columns: Sample_ID, Age, Sex, Batch, Diagnosis, Neutrophils, Basophils, Eosinophils, Lymphocytes, and Monocytes. The raw count matrix (Raw_count1) used here is obtained directly after processing of raw fastq files. The pre-processing of Raw_count1 is performed in this stage to obtain filtered Raw_count2, which is used for DEGs as well as WGCNA.
 
