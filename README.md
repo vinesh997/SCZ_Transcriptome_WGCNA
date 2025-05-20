@@ -5,6 +5,7 @@
 **About the script:** The analysis is divided into two sections. 1- Hemogram analysis for partial correlation of hemogram data with the PANSS scores (symptom severity) and 2- Transcriptome analysis for differential gene expression analysis (DGEA) and Weighted gene coexpression analysis (WGCNA) for association with the symptom severity. The phenodata information for partial correlation and WGCNA can be obtained on request.  
 
 **Hemogram analysis** 
+
 1-Partial_Correlation.R- The correlation analysis between hemogram and the PANSS scores was performed using this script. For the initial analysis, a single file (Phenodata 2) is generated using data from only SCZ participants. The columns for Phenodata 2 are as follows: Sample_ID, Positive, Negative, General, Anergia, Thought Disturbance, Activation, Paranoid, Depression, Composite, Total, Neutrophils, Basophils, Eosinophils, Lymphocytes, Monocytes, Hemoglobin, RBC count, Platelet, NLR, PLR, MLR, Tobacco, Alcohol, Cannabis, Sex, Age, and Duration of Disorder. The next file (Phenodata 3) for filtration is generated using data from both SCZ and HC samples. The columns for Phenodata 3 are as follows: Sample_ID, Groups, Neutrophils, Basophils, Eosinophils, Lymphocytes, Monocytes, Hemoglobin, RBC count, Platelet, NLR, PLR, MLR.
 
 **Transcriptome analysis** 
