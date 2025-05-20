@@ -1,4 +1,4 @@
-**Title:** Cellular and Gene Expression Changes as Markers for Schizophrenia Symptoms: Exploratory Findings from a Pilot Study in the Indian Population
+**Title:** Cellular and Gene Expression Changes in Peripheral Blood as Markers for Schizophrenia Symptoms: Exploratory Findings from a Pilot Study in the Indian Population
 
 **Aim:** Association of peripheral blood parameters with the symptom severity in SCZ in the Indian population
 
