@@ -2,7 +2,7 @@
 
 **Aim:** Association of peripheral blood parameters with the symptom severity in SCZ in the Indian population
 
-**Data type:** RNA-seq data of SCZ and healthy control (HC) participants
+**Data type:** Hemogram data and RNA-seq data of SCZ and healthy control (HC) participants
 
 **About the script:** The raw RNA-seq files were processed using the scripts (https://github.com/satyajeetkhare/RNASeq_HISAT2_Gencode_hg38). The fastq files are obtained from INDA-CA (INCARP000275 and  INCARP000309). The phenodata information can be obtained on request. The raw count matrix is used for differential gene expression analysis and Weighted gene coexpression analysis (WGCNA). The scripts are as provided above, and the details of each script are mentioned below. 
 
