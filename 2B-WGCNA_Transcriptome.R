@@ -12,15 +12,15 @@ library(ggfortify)
 #setting the working directory
 setwd("") #set the working directory where the files are stored.
 
-#Reading the processed count matrix (Raw_count2) saved from DEG preprocessing
-Data<- read.delim("Raw_count2.txt", check.names = F, sep = " ") #dim 59050;29
+#Reading the raw count matrix (raw_counts) 
+Data<- read.delim("raw_counts.txt", check.names = F, sep = " ") #dim 59050;29
 
 #filtering the genes 
 smallestGroupSize <- 13
 keep <- rowSums(Data >= 10) >= smallestGroupSize
 data_filt<- Data[keep,] #dim 18840;29
 
-#filtering only SCZ samples
+#retaining only SCZ samples
 data_filt<- t(data_filt)
 data_filt<- as.data.frame(data_filt)
 data_filt<- rownames_to_column(data_filt, var = "Sample")
