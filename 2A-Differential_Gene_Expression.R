@@ -6,15 +6,7 @@ setwd(" ") #set the working directory where the files needed for analysis are st
 Phenodata<- read.csv("filename.csv") #read the phenodata file (Phenodata 1)
 
 #Filtering samples to remove the eight samples with low sequencing depth
-Data<- read.delim("filename.txt", check.names = F, sep = "") #dim 59050;38, read the raw count matrix (Raw_count1) obtained after RNA-seq processing 
-Data<- t(Data)
-Data<- as.data.frame(Data)
-Data<- rownames_to_column(Data, var = "Sample")
-Data<- Data[Data$Sample %in% Phenodata$Sample,]
-Data<- Data %>% remove_rownames() %>% column_to_rownames(var = "Sample")
-Data<- t(Data) #59050;29
-
-write.table(Data, "Raw_count2.txt") ## save the file and use this file (Raw_count2) for further analysis as well as for WGCNA
+Data<- read.delim("filename.txt", check.names = F, sep = "") #dim 59050;38, read the raw count matrix (raw_counts) obtained after RNA-seq processing 
 
 #filtering the genes
 smallestGroupSize <- 13
