@@ -24,7 +24,7 @@ data_filt<- Data[keep,] #dim 18840;29
 data_filt<- t(data_filt)
 data_filt<- as.data.frame(data_filt)
 data_filt<- rownames_to_column(data_filt, var = "Sample")
-Pheno<- read.csv("filename.csv") #dim 16;14, reading the phenodata (Phenodata 4) 
+Pheno<- read.csv("filename.csv") #dim 16;14, reading the phenodata (Phenodata 2) 
 dat_sub<- data_filt[data_filt$Sample %in% Pheno$Sample,]
 dat_sub<- dat_sub %>% remove_rownames() %>% column_to_rownames(var = "Sample")
 dat_sub<-t(dat_sub) #dim 18840;16
@@ -74,7 +74,7 @@ par(mar = c(0,4,2,0))
 plot(sampleTree, main = "Sample clustering to detect outliers", sub="", xlab="", cex.lab = 1.5, 
      cex.axis = 1.5, cex.main = 2)
 
-#Reading and editing the trait data (Phenodata 5) to be used for correlation 
+#Reading and editing the trait data (Phenodata 3) to be used for correlation 
 PS<- read.csv(" .csv", check.names = F)
 PS<- column_to_rownames(PS, var = "Scale")
 traitData <-as.data.frame(t(PS)) #dim 16;22
@@ -268,3 +268,4 @@ print(filtered_data)
 
 # Save the filtered data to a new file
 #write.csv(filtered_data, " ", row.names = FALSE)
+
