@@ -28,7 +28,7 @@ data_filt<- as.data.frame(data_filt)
 data_filt<- rownames_to_column(data_filt, var = "Sample")
 
 #Reading phenodata
-Pheno<- read.csv("Phenodata_16_12_25.csv")
+Pheno<- read.csv("")
 
 #Retaining only SCZ samples from phenodata
 Pheno_SCZ<- Pheno[Pheno$Diagnosis == "SCZ",]
@@ -95,7 +95,7 @@ plot(sampleTree, main = "Sample clustering to detect outliers", sub="", xlab="",
 PS<- Pheno_SCZ %>% remove_rownames() %>% column_to_rownames(var = "Sample.ID")
 
 #Retaining only selected clinical variables
-PS<- PS[,-c(1:2, 7:21)]
+PS<- PS[,-c(1:6, 10:15,17)]
 
 traitData <-as.data.frame(PS)
 
