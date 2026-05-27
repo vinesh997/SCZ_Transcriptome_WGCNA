@@ -1,0 +1,131 @@
+#Loading required libraries for differential expression
+library(DESeq2)
+library(tibble)
+library(ggbreak)
+library(EnhancedVolcano)
+
+#Setting working directory
+setwd(" ")
+
+#Reading the phenodata
+Phenodata<- read.csv(" ") # 47;29
+
+#Reading the raw count matrix
+Data<- read.delim(" ", check.names = F, sep = "")
+
+#Identifying common samples between count data and phenodata
+common_samples <- intersect(colnames(Data), Phenodata$Sample.ID)
+
+#Subsetting count matrix and phenodata to common samples
+Data <- Data[, common_samples] # 59050;47
+Phenodata <- Phenodata[Phenodata$Sample.ID %in% common_samples, ]
+
+#Reordering count matrix columns to match phenodata sample order
+Data <- Data[, match(Phenodata$Sample.ID, colnames(Data))]
+
+#Ensuring sample order is identical between both datasets
+stopifnot(all(colnames(Data) == Phenodata$Sample.ID))
+
+#Converting variables into appropriate formats for DESeq2 analysis
+Phenodata$Diagnosis <- factor(Phenodata$Diagnosis)
+Phenodata$Batch<- factor(Phenodata$Batch)
+Phenodata$Sex<- factor(Phenodata$Sex)
+Phenodata$Age <- scale(Phenodata$Age)
+
+#Creating DESeq2 dataset object with covariates and immune cell proportion adjustment
+dds <- DESeqDataSetFromMatrix(Data,
+                              Phenodata,
+                              design = ~ Age + Sex + Batch + T.cells.CD4.memory.activated + Diagnosis)
+
+#Running differential expression analysis pipeline
+dds2 <- DESeq(dds)
+
+#Filtering low-count genes based on minimum count threshold across samples
+smallestGroupSize <- 22
+keep <- rowSums(counts(dds2) >= 20) >= smallestGroupSize
+dds2<- dds2[keep,]
+
+#Variance stabilizing transformation for downstream visualization
+vsd <- vst(dds2, blind=TRUE)
+mat <- assay(vsd)
+
+#PCA plot to visualize sample clustering by diagnosis
+plotPCA(vsd, intgroup=c("Diagnosis"))
+
+#Checking available result names for contrasts
+resultsNames(dds2)
+
+#Extracting results for SCZ vs Control comparison
+res_group_CTR_vs_SCZ <- results(object = dds2, name="Diagnosis_SCZ_vs_CNT", alpha = 0.05)
+
+#Overview of differential expression analysis results
+summary(res_group_CTR_vs_SCZ)
+
+#MA plot for visualization of log fold change vs mean expression
+#plotMA(res_group_CTR_vs_SCZ)
+DESeq2::plotMA(res_group_CTR_vs_SCZ)
+
+#Volcano plot for visualizing significance and fold change distribution
+EnhancedVolcano(res_group_CTR_vs_SCZ,
+                lab = NA,
+                x = 'log2FoldChange',
+                y = 'pvalue',
+                pCutoff = 0.05,
+                FCcutoff = 1.0)  +  ggplot2::coord_cartesian(ylim=c(0, 10))
+
+#Define log2 fold change threshold
+log2FC_threshold <- 0  # Use 0 to identify any changes above or below
+
+#Separate upregulated and downregulated genes based on log2 fold change
+upregulated <- res_group_CTR_vs_SCZ[res_group_CTR_vs_SCZ$log2FoldChange > log2FC_threshold, ]
+downregulated <- res_group_CTR_vs_SCZ[res_group_CTR_vs_SCZ$log2FoldChange < -log2FC_threshold, ]
+
+#Sorting genes based on magnitude of differential expression
+upregulated <- upregulated[order(upregulated$log2FoldChange, decreasing = TRUE), ]
+upregulated<- as.data.frame(upregulated) # 6725;6
+upregulated<- rownames_to_column(upregulated, var = "Genes")
+rownames(upregulated)<- NULL
+
+#Sorting downregulated genes based on log2 fold change
+downregulated <- downregulated[order(downregulated$log2FoldChange, decreasing = FALSE), ]
+downregulated<- as.data.frame(downregulated) # 7978;6
+downregulated<- rownames_to_column(downregulated, var = "Genes")
+rownames(downregulated)<- NULL
+
+#Viewing the top 10 upregulated genes
+top_upregulated <- head(upregulated, 10)
+top_upregulated
+
+#Viewing the top 10 downregulated genes
+top_downregulated <- head(downregulated, 10)
+top_downregulated
+
+#Converting gene names to character format for export
+upregulated$Genes<- as.character(upregulated$Genes)
+
+#Saving upregulated genes as CSV file
+#write.csv(upregulated, file = "upregulated_genes_27_05_2026.csv", row.names = F, quote = T)
+
+#Saving only upregulated gene names as text file
+#write.table(
+#  as.character(upregulated$Genes),
+#  file = "upregulated_genes_27_05_2026.txt",
+#  row.names = FALSE,
+#  col.names = FALSE,
+#  quote = FALSE
+#)
+
+#Converting gene names to character format for export
+downregulated$Genes<- as.character(downregulated$Genes)
+
+#Saving downregulated genes as CSV file
+#write.csv(downregulated, file = "downregulated_genes_27_05_2026.csv", row.names = F, quote = T)
+
+#Saving only downregulated gene names as text file
+#write.table(
+#  as.character(downregulated$Genes),
+#  file = "downregulated_genes_27_05_2026.txt",
+#  row.names = FALSE,
+#  col.names = FALSE,
+#  quote = FALSE
+#)
