@@ -81,7 +81,7 @@ Pheno_SCZ$Batch<- as.factor(Pheno_SCZ$Batch)
 # biological covariates to preserve
 # during batch correction
 #==============================#
-design.Covariates <- model.matrix(~ Age + Sex + T_cells_CD4_memory_activated, data=Pheno_SCZ)
+design.Covariates <- model.matrix(~ Age + Sex + T.cells.CD4.memory.activated, data=Pheno_SCZ)
 
 #==============================#
 # Remove batch effects while retaining
